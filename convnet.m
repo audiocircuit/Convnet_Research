@@ -1,9 +1,15 @@
 clear;
 clc;
-clf;
+%clf;
 
 %=================Read In 256x256 Image========================
-test_image  = imread('image.jpg');
+%test_image  = imread('image.jpg');
+test_image = [0,1,2,3,4,5;
+    10,11,12,13,14,15;
+    20,21,22,23,24,25;
+    30,31,32,33,34,35;
+    40,41,42,43,44,45;
+    50,51,52,53,54,55]
 %figure(1)
 %imshow(test_image)
 
@@ -28,5 +34,11 @@ test_image  = imread('image.jpg');
 
 %=======Obtain 5 224x224 images from the 256x256 Red Image=====
 for i=0:1
-    
+    for j=0:1
+        test_image_size = size(test_image);
+        width = test_image_size(1,1);
+        height = test_image_size(1,2);
+        
+        sections = (test_image(1,1))
+    end
 end
