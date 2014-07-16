@@ -3,13 +3,21 @@ clc;
 %clf;
 
 %=================Read In 256x256 Image========================
-%test_image  = imread('image.jpg');
-test_image = [0,1,2,3,4,5;
-    10,11,12,13,14,15;
-    20,21,22,23,24,25;
-    30,31,32,33,34,35;
-    40,41,42,43,44,45;
-    50,51,52,53,54,55]
+image_size = 256;
+image_depth = 3;
+sample_size = 11;
+array_placement = 0;
+
+test_image  = imread('image.jpg');
+
+%=================Read in small test image====================
+% image_size = 6;
+% image_depth = 3;
+% sample_size = 4;
+% array_placement = 0;
+% 
+% test_image = randn(image_size, image_size, image_depth)
+
 %figure(1)
 %imshow(test_image)
 
@@ -32,13 +40,41 @@ test_image = [0,1,2,3,4,5;
 % %figure(4)
 % %imshow(blue_image)
 
+%===================Initilizations===============================
+sections = zeros(sample_size, sample_size, image_depth);
+
 %=======Obtain 5 224x224 images from the 256x256 Red Image=====
-for i=0:1
-    for j=0:1
-        test_image_size = size(test_image);
-        width = test_image_size(1,1);
-        height = test_image_size(1,2);
+for k = 1:3
+    for i = 0:1
+        for j = 0:1
+            
+            array_placement = array_placement + 1;
+            
+            
+            start_pixel_x = i*(image_size-sample_size)+1;
+            start_pixel_y = j*(image_size-sample_size)+1;
         
-        sections = (test_image(1,1))
+            sections(:,:,array_placement) = test_image(start_pixel_x : start_pixel_x + (sample_size-1), start_pixel_y : start_pixel_y + (sample_size-1),k);
+        
+           fprintf('x: %d y: %d z: %d\n', start_pixel_x, start_pixel_y, k);
+        end
     end
+    
+    array_placement = array_placement + 1;
+    
+    start_pixel_x = (image_size - sample_size)/2 + 1;
+    start_pixel_y = (image_size - sample_size)/2 + 1;
+    
+    sections(:,:,array_placement) = test_image(start_pixel_x : start_pixel_x + (sample_size-1), start_pixel_y : start_pixel_y + (sample_size-1),k);
+    
+    fprintf('x: %d y: %d z: %d\n', start_pixel_x, start_pixel_y, k);
+    
 end
+
+sections_flipped = flip(sections,2);
+
+sections
+fprintf('===============================================');
+fprintf('===============================================');
+fprintf('===============================================');
+sections_flipped
